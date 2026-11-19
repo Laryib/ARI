@@ -2,14 +2,57 @@
 
 <h1 align="center"> ARI </h1>
 <a name="top"></a>
-Apoio ao autocuidado e ao manejo de comportamentos compulsivos por meio de atividades cognitivas.
 
-## <img width="40" height="40" alt="12850929" src="https://github.com/user-attachments/assets/97196c62-40d2-408c-8f0c-fd9f7497508d" /> Sobre o projeto
-O ARI é um projeto desenvolvido para fins acadêmicos como requisito do 1º período na disciplina de Projeto interdisciplinar para Sistemas de Informação do curso de Bacharelado em Sistemas de Informação da [Universidade Federal Rural de Pernambuco (UFRPE)](https://ufrpe.br).
+<p align="center"> Apoio ao autocuidado e ao monitoramento de comportamentos aditivos por meio de atividades cognitivas. </p>
 
-O projeto propõe o desenvolvimento de um sistema de apoio ao autocuidado e ao acompanhamento pessoal, voltado a pessoas que desejam desenvolver estratégias para lidar com comportamentos compulsivos.
+O ARI é um projeto desenvolvido para fins acadêmicos como requisito do 1º período na disciplina de **Projeto interdisciplinar para Sistemas de Informação** do curso de Bacharelado em Sistemas de Informação da [Universidade Federal Rural de Pernambuco (UFRPE)](https://ufrpe.br).
 
-Além de permitir o registro e o acompanhamento de hábitos e comportamentos, o ARI oferece alternativas para momentos de gatilho ou dificuldade, por meio de atividades que estimulam a reflexão e o desenvolvimento cognitivo, como leitura, escrita e jogos. O sistema também disponibiliza recursos opcionais de interação comunitária para o compartilhamento de experiências e o apoio mútuo.
+## 🧶​ Sobre o projeto 
 
-O sistema tem finalidade educativa e de apoio ao autocuidado, não substituindo acompanhamento psicológico, médico ou outros cuidados profissionais.
+O ARI é um projeto que propõe uma aplicação de apoio ao autocuidado e ao acompanhamento pessoal, voltado a pessoas que lidam com comportamentos aditivos e hábitos compulsivos.
 
+A aplicação reúne recursos para registrar, acompanhar e organizar  comportamentos e seus momentos de gatilhos. Além disso, oferece ao usuário atividades alternativas que possam contribuir para o seu autoconhecimento e cognição. 
+
+O sistema tem finalidade educativa e de apoio, não substituindo acompanhamento psicológico, médico ou outros cuidados profissionais.
+
+## 🗡️ Justificativa e Objetivos
+
+## 🧭​ Requisitos principais
+O escopo inicial do ARI está organizado em cinco requisitos funcionais, que definem as funcionalidades do projeto na primeira release.
+
+### Release 01
+| ID | Requisito funcional |
+|---|---|
+| **RF01** | Cadastro de perfil (CRUD completo) |
+| **RF02** | Cadastro e gerenciamento de comportamentos (CRUD completo) | 
+| **RF03** | Registro diário | 
+| **RF04** | Consulta de histórico e calendário de acompanhamento | 
+| **RF05** | Contador de período desde a última ocorrência | 
+
+### Saiba mais
+
+## 🛠️​ Ferramentas e Bibliotecas
+O desenvolvimento do sistema é feito totalmente na linguagem Pyhton, ultilizando os princípios da Programação Orientada a Objetos (P.O.O).
+| Tecnologia | Ultilização |
+|---|---|
+| **Python** | Linguagem principal do projeto |
+| **CustomTkinter** | Desenvolvimento da interface gráfica |
+| **SQLite** | Armazenamento e gerenciamento de dados |
+| **Open Library API** | API de consulta e leitura de livros digitais |
+|**Pygame** | Desenvolvimento de jogos interativos |
+
+## ​▶️​ Execução
+As instruções de instalação e execução serão disponibilizados.
+
+## ​👩‍💻​ Autoria 
+Laryssa Bonfim
+
+Bacharelado em Sistemas de Informação — UFRPE
+
+Para feedbacks, sugestões ou dúvidas, entre em contato:
+Email:
+
+## 📃 Licença
+Este projeto é distribuído sob os termos da [GNU General Public License v3.0 (GPLv3)](https://www.gnu.org/licenses/gpl-3.0.html).
+
+[Voltar ao início](#top)
