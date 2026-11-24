@@ -8,3 +8,4 @@ from banco import Banco
 banco = Banco()
 banco.criar_tabelas_usuarios()
 """Criação da tabela de usuários no banco de dados SQLite."""
+

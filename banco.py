@@ -2,7 +2,6 @@
 # Este arquivo implementa a classe Banco, que gerencia a conexão com o banco de dados SQLite e a criação de tabelas.
 
 import sqlite3
-"""Implementação de um banco de dados SQLite para armazenar informações de usuários e produtos."""
 
 class Banco:
     def __init__(self, nome_banco='ari_banco.db'):
@@ -59,4 +58,54 @@ class Banco:
         cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)", (usuario.nome, usuario.email, usuario.senha)) # Executa o comando SQL para inserir um novo usuário na tabela de usuários.
         conexao.commit() # Salva as alterações no banco de dados.
         conexao.close() # Fecha a conexão com o banco de dados.
+        return True  # Retorna True para indicar que o usuário foi cadastrado com sucesso.
 
+    def consultar_usuario(self, id_usuario):
+        """Consulta um usuário no banco de dados pelo ID."""
+        conexao = self.conectar()
+        if conexao:
+            cursor = conexao.cursor()
+            cursor.execute("SELECT * FROM usuarios WHERE id = ?", (id_usuario,))
+            resultado = cursor.fetchone()
+            conexao.close()
+            return resultado
+        return None
+
+    def atualizar_usuario(self, id_usuario, usuario):
+        """Atualiza os dados de um usuário no banco de dados pelo id."""
+        usuario.validar_usuario()  # Valida os dados do usuário antes de atualizá-lo
+
+        usuario_atual = self.consultar_usuario(id_usuario) # Consulta o usuário atual no banco de dados pelo ID fornecido.
+       
+        if usuario_atual is None:
+                 raise ValueError("Usuário não encontrado.")
+        
+        if usuario.email != usuario_atual[2] and self.email_existe(usuario.email):
+            raise ValueError("Este email já está cadastrado no sistema.")
+        # este trecho verifica se o email do usuário que está sendo atualizado é diferente do email atual no banco de dados.
+        
+        conexao = self.conectar()
+        if conexao:
+            cursor = conexao.cursor()
+            cursor.execute("UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?", (usuario.nome, usuario.email, usuario.senha, id_usuario))
+            conexao.commit()
+            conexao.close()
+            return True  # Retorna True para indicar que o usuário foi atualizado com sucesso.
+        
+        return False  # Retorna False se a conexão com o banco de dados falhar.
+
+    def deletar_usuario(self, id_usuario):
+        """Deleta um usuário do banco de dados pelo ID."""
+        usuario_atual = self.consultar_usuario(id_usuario)
+
+        if usuario_atual is None:
+            raise ValueError("Usuário não encontrado.")
+        
+        conexao = self.conectar()
+        if conexao:
+            cursor = conexao.cursor()
+            cursor.execute("DELETE FROM usuarios WHERE id = ?", (id_usuario,))
+            conexao.commit()
+            conexao.close()
+            return True  # Retorna True para indicar que o usuário foi deletado com sucesso.
+        return False  # Retorna False se a conexão com o banco de dados falhar.
