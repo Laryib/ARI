@@ -45,7 +45,8 @@ class Banco:
             return resultado is not None
         return False
 
-    # Aqui começamos o CRUD de usuários, com a função de criar um novo usuário no banco de dados.
+#--------------------------------------------------------------------------------------------------------------------------------
+# Aqui começamos o CRUD de usuários, com a função de criar e gerenciar um usuário no banco de dados.
     
     def cadastrar_usuario(self, usuario):
         """Cadastra um novo usuário no banco de dados."""
@@ -60,7 +61,7 @@ class Banco:
         conexao.close() # Fecha a conexão com o banco de dados.
         return True  # Retorna True para indicar que o usuário foi cadastrado com sucesso.
 
-    def consultar_usuario(self, id_usuario):
+    def consultar_usuario_id(self, id_usuario):
         """Consulta um usuário no banco de dados pelo ID."""
         conexao = self.conectar()
         if conexao:
@@ -70,12 +71,22 @@ class Banco:
             conexao.close()
             return resultado
         return None
+    
+    def consultar_usuario_email(self, email):
+        conexao = self.conectar()
+        if conexao:
+            cursor = conexao.cursor()
+            cursor.execute( "SELECT * FROM usuarios WHERE email = ?", (email,))
+            usuario = cursor.fetchone()
+            conexao.close()
+            return usuario
+        return None
+
 
     def atualizar_usuario(self, id_usuario, usuario):
         """Atualiza os dados de um usuário no banco de dados pelo id."""
         usuario.validar_usuario()  # Valida os dados do usuário antes de atualizá-lo
-
-        usuario_atual = self.consultar_usuario(id_usuario) # Consulta o usuário atual no banco de dados pelo ID fornecido.
+        usuario_atual = self.consultar_usuario_id(id_usuario)# Consulta o usuário atual no banco de dados pelo ID fornecido.
        
         if usuario_atual is None:
                  raise ValueError("Usuário não encontrado.")
@@ -96,7 +107,7 @@ class Banco:
 
     def deletar_usuario(self, id_usuario):
         """Deleta um usuário do banco de dados pelo ID."""
-        usuario_atual = self.consultar_usuario(id_usuario)
+        usuario_atual = self.consultar_usuario_id(id_usuario)
 
         if usuario_atual is None:
             raise ValueError("Usuário não encontrado.")
@@ -109,3 +120,26 @@ class Banco:
             conexao.close()
             return True  # Retorna True para indicar que o usuário foi deletado com sucesso.
         return False  # Retorna False se a conexão com o banco de dados falhar.
+
+#-------------------------------------------------------------------------------------------------------------
+    def autenticar_usuario(self, email, senha):
+        """Confere email e senha do usuário no banco de dados e devolve os dados se estiverem corretos."""
+        usuario = self.consultar_usuario_email(email)
+        if usuario is None:
+            raise ValueError("Usuário não encontrado.")
+        if usuario[3] != senha:
+            raise ValueError("Senha incorreta.")
+        return usuario  # Retorna os dados do usuário se a autenticação for bem-sucedida.
+
+#-----------------------------------------------------------------------------------------------------------
+    def listar_usuarios(self):
+        """Lista os usuários cadastrados no banco de dados."""
+
+        conexao = self.conectar()
+        if conexao:
+            cursor = conexao.cursor()
+            cursor.execute( "SELECT id, nome, email FROM usuarios")
+            usuarios = cursor.fetchall()
+            conexao.close()
+            return usuarios
+        return []

@@ -1,11 +1,16 @@
 # main.py
 # Este arquivo é o ponto de entrada do programa, onde a aplicação é iniciada.
-
-from modelos.usuario import Usuario
+# main.py
+# Arquivo principal para execução do ARI.
 from banco import Banco
-"""Importação da classe Banco para gerenciar o banco de dados SQLite."""
+from telas.tela_cadastro import TelaARI
 
-banco = Banco()
-banco.criar_tabelas_usuarios()
-"""Criação da tabela de usuários no banco de dados SQLite."""
+def main():
+    """Inicializa o banco de dados e executa o ARI."""
+    banco = Banco()
+    banco.criar_tabelas_usuarios()
+    app = TelaARI()
+    app.mainloop()
 
+if __name__ == "__main__":
+    main()
