@@ -56,7 +56,7 @@ class TelaARI (ctk.CTk):
         self.descricao = ctk.CTkLabel(self, text=DESCRICAO_ARI, font=("Century Gothic", 14, ),text_color="#000000", wraplength=480, justify="center" )
         self.descricao.pack(padx=20,pady=10)
 
-        self.descricao_cadastro = ctk.CTkLabel( self, text="Faça parte do ARI!",font=("Century Gothic", 17, "bold"), text_color="#7D0000")
+        self.descricao_cadastro = ctk.CTkLabel( self, text="Você tem cuidado de si ou apenas repetido velhos hábitos?",font=("Century Gothic", 17, "bold"), text_color="#7D0000")
         self.descricao_cadastro.pack(pady=10)
 
         self.botao_cadastrar = ctk.CTkButton(self, text= "Cadastrar", width = 500, height=40,fg_color="#792929", hover_color="#6B2424", text_color="#FFFFFF" , command=self.tela_cadastro)
@@ -560,7 +560,7 @@ class TelaARI (ctk.CTk):
     def abrir_meu_perfil(self):
         """Apresenta os dados do usuário logado."""
 
-        messagebox.showinfo("Meu perfil", f"Nome: {self.usuario_logado[1]}\n" , f"E-mail: {self.usuario_logado[2]}")
+        messagebox.showinfo("Meu perfil", f"Nome: {self.usuario_logado[1]}\n"  f"E-mail: {self.usuario_logado[2]}")
 
     def sair_da_conta(self):
         """Encerra a sessão do usuário."""
