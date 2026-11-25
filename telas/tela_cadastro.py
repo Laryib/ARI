@@ -50,15 +50,18 @@ class TelaARI (ctk.CTk):
 
         self.configure(fg_color="#FFF6EF")
 
-        self.titulo = ctk.CTkLabel(self , text="Seja bem-vindo ao ARI!", font=("Century Gothic", 20, "bold"), text_color="#7D0000" )
+        self.titulo = ctk.CTkLabel(self , text="ARI", font=("Century Gothic", 25, "bold"), text_color="#7D0000" )
         self.titulo.pack(pady=5)
+
+        self.descricao_cadastro = ctk.CTkLabel( self, text="Você tem cuidado de si ou apenas repetido velhos hábitos?",font=("Century Gothic", 15, "bold"), text_color="#000000")
+        self.descricao_cadastro.pack(pady=10)
 
         self.descricao = ctk.CTkLabel(self, text=DESCRICAO_ARI, font=("Century Gothic", 14, ),text_color="#000000", wraplength=480, justify="center" )
         self.descricao.pack(padx=20,pady=10)
 
-        self.descricao_cadastro = ctk.CTkLabel( self, text="Você tem cuidado de si ou apenas repetido velhos hábitos?",font=("Century Gothic", 17, "bold"), text_color="#7D0000")
-        self.descricao_cadastro.pack(pady=10)
-
+        self.descriçao_cadastrar = ctk.CTkButton(self, text="Comece uma nova fase.",font=("Century Gothic", 14,"bold"), text_color="#7D0000"
+        self.descricao.pack(padx=20,pady=10)
+                                                 
         self.botao_cadastrar = ctk.CTkButton(self, text= "Cadastrar", width = 500, height=40,fg_color="#792929", hover_color="#6B2424", text_color="#FFFFFF" , command=self.tela_cadastro)
         self.botao_cadastrar.pack(pady=10)
 
