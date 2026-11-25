@@ -21,7 +21,7 @@ class TelaARI (ctk.CTk):
         super().__init__()
         
         self.banco = Banco()
-        self.banco.criar_tabelas_usurios()
+        self.banco.criar_tabelas_usuarios()
         self.banco.criar_tabelas_comportamentos()
         self.banco.criar_tabelas_registros()
         
