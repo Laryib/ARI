@@ -56,6 +56,24 @@ class Banco:
             conexao.commit()
             conexao.close()
 
+    def criar_tabelas_registros(self):
+        conexao = self.conectar()
+        if conexao:
+            cursor = conexao.cursor()
+            cursor.execute( """
+                CREATE TABLE IF NOT EXISTS registros (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    id_usuario INTEGER NOT NULL,
+                    data TEXT NOT NULL,
+                    descricao TEXT NOT NULL,
+                    FOREIGN KEY (id_usuario)
+                    REFERENCES usuarios(id)
+                    ON DELETE CASCADE
+                )
+                """)
+            conexao.commit()
+            conexao.close()
+
 
     def email_existe(self, email):
         """Verifica se um email já existe na tabela de usuários."""
@@ -265,4 +283,80 @@ class Banco:
         return False
             
 
-        
+# RF03 - Registros diários -----------------------------------------------
+    def cadastrar_registro(self, registro):
+        """Cadastra um registro diário."""
+
+        registro.validar_registro()
+
+        conexao = self.conectar()
+
+        if conexao:
+            cursor = conexao.cursor()
+
+            cursor.execute(
+                """
+                INSERT INTO registros (id_usuario, data, descricao)
+                VALUES (?, ?, ?)
+                """,
+                (
+                    registro.id_usuario,
+                    registro.data,
+                    registro.descricao,
+                ),
+            )
+
+            conexao.commit()
+            conexao.close()
+            return True
+
+        return False
+
+    def listar_registros(self, id_usuario):
+        """Lista os registros de um usuário."""
+
+        conexao = self.conectar()
+
+        if conexao:
+            cursor = conexao.cursor()
+
+            cursor.execute(
+                """
+                SELECT id, id_usuario, data, descricao
+                FROM registros
+                WHERE id_usuario = ?
+                ORDER BY id DESC
+                """,
+                (id_usuario,),
+            )
+
+            registros = cursor.fetchall()
+            conexao.close()
+
+            return registros
+
+        return []
+
+    def deletar_registro(self, id_registro, id_usuario):
+        """Exclui um registro pertencente ao usuário."""
+
+        conexao = self.conectar()
+
+        if conexao:
+            cursor = conexao.cursor()
+
+            cursor.execute(
+                """
+                DELETE FROM registros
+                WHERE id = ? AND id_usuario = ?
+                """,
+                (id_registro, id_usuario),
+            )
+
+            conexao.commit()
+            excluido = cursor.rowcount > 0
+            conexao.close()
+
+            return excluido
+
+        return False
