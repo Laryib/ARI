@@ -19,7 +19,12 @@ class TelaARI (ctk.CTk):
     """Classe responsável pelas telas iniciais"""
     def __init__(self):
         super().__init__()
+        
         self.banco = Banco()
+        self.banco.criar_tabelas_usurios()
+        self banco.criar_tabelas_comportamentos()
+        self banco.criar_tabelas_registros()
+        
         self.janela_principal()
         self.tela_inicial()
 
