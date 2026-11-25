@@ -137,7 +137,8 @@ class TelaARI (ctk.CTk):
         self.entrada_senha_login.pack(pady=10)
 
         # Botão de login
-        self.botao_login = ctk.CTkButton(self, text="Entrar", width=350, height=40, fg_color="#792929", hover_color="#6B2424", text_color="#FFFFFF" )
+        self.botao_login = ctk.CTkButton(self, text="Entrar", width=350, height=40, fg_color="#792929", hover_color="#6B2424", text_color="#FFFFFF",
+        command=self.realizar_login)
         self.botao_login.pack(pady=15)
 
         # Texto Separador
@@ -160,3 +161,22 @@ class TelaARI (ctk.CTk):
         """Informa que o login com Google ainda não está disponível."""
         messagebox.showinfo("ARI","Infelizmente, o login com Google ainda não foi implementado.")
 
+    def realizar_login(self):
+        """Realiza a autenticação do usuário."""
+
+        email = self.entrada_email_login.get().strip().lower()
+        senha = self.entrada_senha_login.get()
+
+        if not email or not senha:
+            messagebox.showerror("Erro no login","Preencha o e-mail e a senha.")
+            return
+        try:
+            usuario = self.banco.autenticar_usuario(email, senha)
+        except ValueError:
+            messagebox.showerror( "Erro no login", "E-mail ou senha incorretos.")
+            return
+        
+        self.usuario_logado = usuario
+
+        messagebox.showinfo("ARI", f"Bem-vindo(a), {usuario[1]}!")
+        
