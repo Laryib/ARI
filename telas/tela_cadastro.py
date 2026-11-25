@@ -22,8 +22,8 @@ class TelaARI (ctk.CTk):
         
         self.banco = Banco()
         self.banco.criar_tabelas_usurios()
-        self banco.criar_tabelas_comportamentos()
-        self banco.criar_tabelas_registros()
+        self.banco.criar_tabelas_comportamentos()
+        self.banco.criar_tabelas_registros()
         
         self.janela_principal()
         self.tela_inicial()
