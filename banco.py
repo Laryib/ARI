@@ -60,7 +60,7 @@ class Banco:
         conexao = self.conectar()
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute( """
+            cursor.execute( '''
                 CREATE TABLE IF NOT EXISTS registros (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     id_usuario INTEGER NOT NULL,
@@ -68,9 +68,7 @@ class Banco:
                     descricao TEXT NOT NULL,
                     FOREIGN KEY (id_usuario)
                     REFERENCES usuarios(id)
-                    ON DELETE CASCADE
-                )
-                """)
+                    ON DELETE CASCADE ) ''')
             conexao.commit()
             conexao.close()
 
@@ -81,7 +79,7 @@ class Banco:
 
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute("SELECT * FROM usuarios WHERE email = ?", (email,))
+            cursor.execute("SELECT * FROM usuarios WHERE email = ?", (email,) )
            # Em linguagem SQL, seleciona todos os registros da tabela usuário onde o email for igual ao parametro fornecido.
 
             resultado = cursor.fetchone()
@@ -101,7 +99,7 @@ class Banco:
 
         conexao = self.conectar() # Estabelece a conexão com o banco de dados.
         cursor = conexao.cursor() # Cria um cursor para executar comandos SQL.
-        cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)", (usuario.nome, usuario.email, usuario.senha))
+        cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)", (usuario.nome, usuario.email, usuario.senha) )
         # Executa o comando SQL para inserir um novo usuário na tabela de usuários.
         
         conexao.commit() # Salva as alterações no banco de dados.
@@ -114,7 +112,7 @@ class Banco:
 
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute("SELECT * FROM usuarios WHERE id = ?", (id_usuario,))
+            cursor.execute("SELECT * FROM usuarios WHERE id = ?", (id_usuario,) )
             resultado = cursor.fetchone()
             conexao.close()
             return resultado
@@ -125,7 +123,7 @@ class Banco:
 
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute( "SELECT * FROM usuarios WHERE email = ?", (email,))
+            cursor.execute( "SELECT * FROM usuarios WHERE email = ?", (email,) )
 
             usuario = cursor.fetchone()
             conexao.close()
@@ -148,7 +146,7 @@ class Banco:
 
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute("UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?", (usuario.nome, usuario.email, usuario.senha, id_usuario))
+            cursor.execute("UPDATE usuarios SET nome = ?, email = ?, senha = ? WHERE id = ?", (usuario.nome, usuario.email, usuario.senha, id_usuario) )
 
             conexao.commit()
             conexao.close()
@@ -166,7 +164,7 @@ class Banco:
 
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute("DELETE FROM usuarios WHERE id = ?", (id_usuario,))
+            cursor.execute("DELETE FROM usuarios WHERE id = ?", (id_usuario,) )
 
             conexao.commit()
             conexao.close()
@@ -183,7 +181,7 @@ class Banco:
         
         if usuario[3] != senha:
             raise ValueError("Senha incorreta.")
-        
+    
         return usuario  # Retorna os dados do usuário se a autenticação for bem-sucedida.
 
 # CRUD de Usuários - Listagem -----------------------------------------------------------------------------------------------------------
@@ -208,7 +206,7 @@ class Banco:
 
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute("SELECT id FROM comportamentos WHERE id_usuario = ?", (comportamento.id_usuario,))
+            cursor.execute("SELECT id FROM comportamentos WHERE id_usuario = ?", (comportamento.id_usuario,) )
             resultado = cursor.fetchone()
             # Verifica se o usuário já possui um comportamento cadastrado.
 
@@ -217,7 +215,7 @@ class Banco:
                 raise ValueError("Este usuário já possui um comportamento cadastrado.")
          # Verifica se o usuário já possui um comportamento cadastrado.
          
-            cursor.execute('''INSERT INTO comportamentos (id_usuario, nome, categoria, data_inicio, apelido) VALUES (?, ?, ?, ?, ?)''', (comportamento.id_usuario,comportamento.nome, 
+            cursor.execute("INSERT INTO comportamentos (id_usuario, nome, categoria, data_inicio, apelido) VALUES (?, ?, ?, ?, ?)", (comportamento.id_usuario,comportamento.nome, 
             comportamento.categoria, comportamento.data_inicio, comportamento.apelido) )
             # Insere os dados do comportamento no banco.
 
@@ -255,7 +253,7 @@ class Banco:
         if conexao:
             cursor = conexao.cursor()
             cursor.execute('''UPDATE comportamentos SET nome = ?, categoria = ?, data_inicio = ?, apelido = ? WHERE id_usuario = ? ''', ( comportamento.nome,
-            comportamento.categoria, comportamento.data_inicio, comportamento.apelido, id_usuario ))
+            comportamento.categoria, comportamento.data_inicio, comportamento.apelido, id_usuario ) )
 
             conexao.commit()
             conexao.close()
@@ -269,21 +267,20 @@ class Banco:
 
         if comportamento_atual is None:
             raise ValueError("Comportamento não encontrado.")
-
+            
         conexao = self.conectar()
 
         if conexao:
             cursor = conexao.cursor()
-            cursor.execute("DELETE FROM comportamentos WHERE id_usuario = ?", (id_usuario,))
+            cursor.execute("DELETE FROM comportamentos WHERE id_usuario = ?", (id_usuario,) )
             # Exclui o comportamento associado ao ID do usuário.
-
+            
             conexao.commit()
             conexao.close()
             return True
-        return False
-            
+        return False        
 
-# RF03 - Registros diários -----------------------------------------------
+# RF03 - Crud de Registros diários -----------------------------------------------
     def cadastrar_registro(self, registro):
         """Cadastra um registro diário."""
 
@@ -293,23 +290,13 @@ class Banco:
 
         if conexao:
             cursor = conexao.cursor()
-
-            cursor.execute(
-                """
+            cursor.execute("""
                 INSERT INTO registros (id_usuario, data, descricao)
-                VALUES (?, ?, ?)
-                """,
-                (
-                    registro.id_usuario,
-                    registro.data,
-                    registro.descricao,
-                ),
-            )
+                VALUES (?, ?, ?) """, (registro.id_usuario, registro.data, registro.descricao ) )
 
             conexao.commit()
             conexao.close()
             return True
-
         return False
 
     def listar_registros(self, id_usuario):
@@ -320,21 +307,17 @@ class Banco:
         if conexao:
             cursor = conexao.cursor()
 
-            cursor.execute(
-                """
+            cursor.execute("""
                 SELECT id, id_usuario, data, descricao
                 FROM registros
                 WHERE id_usuario = ?
                 ORDER BY id DESC
-                """,
-                (id_usuario,),
-            )
+                """, (id_usuario,) )
 
             registros = cursor.fetchall()
             conexao.close()
 
             return registros
-
         return []
 
     def deletar_registro(self, id_registro, id_usuario):
@@ -345,18 +328,14 @@ class Banco:
         if conexao:
             cursor = conexao.cursor()
 
-            cursor.execute(
-                """
+            cursor.execute("""
                 DELETE FROM registros
                 WHERE id = ? AND id_usuario = ?
-                """,
-                (id_registro, id_usuario),
-            )
+                """, (id_registro, id_usuario) )
 
             conexao.commit()
             excluido = cursor.rowcount > 0
             conexao.close()
 
             return excluido
-
         return False
