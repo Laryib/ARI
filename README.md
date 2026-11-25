@@ -42,8 +42,8 @@ O escopo inicial do ARI está organizado em cinco requisitos funcionais, que def
 | **RF01** | Cadastro de perfil (CRUD completo) |
 | **RF02** | Cadastro e gerenciamento de comportamentos (CRUD completo) | 
 | **RF03** | Registro diário | 
-| **RF04** | Consulta de histórico e calendário de acompanhamento | 
-| **RF05** | Contador de período desde a última ocorrência | 
+| **RF04** | Menu Inicial | 
+| **RF05** | Interface gráfica | 
 
 #### Tabela de requisitos completa
 
@@ -59,8 +59,59 @@ O desenvolvimento do sistema é feito totalmente na linguagem Python, utilizando
 | [**Pygame**](https://www.pygame.org/) | Desenvolvimento de jogos interativos |
 
 <a id="execucao"></a>
-## ​▶️​ Execução
-As instruções de instalação e execução serão disponibilizadas.
+## ​▶️​ Instalação e execução do ARI
+### 1. Pré-requisitos para a instalação 
+- Python 3.10 ou superior.
+- Git instalado.
+- Um editor de código, como Visual Studio Code.
+
+### 2. clone o repositório
+Abra o terminal e execute:
+```bash
+git clone https://github.com/Laryib/ARI.git
+```
+
+Entre na pasta do projeto:
+
+```bash
+cd ARI
+```
+
+### 3. Criar o ambiente virtual
+
+```bash
+python -m venv venv
+```
+
+Ative o ambiente virtual:
+
+**Windows:**
+```bash
+venv\Scripts\activate
+```
+
+**Linux/macOS:**
+```bash
+source venv/bin/activate
+```
+
+### 4. Instalar as dependências
+
+Com o ambiente virtual ativado, execute:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 5. Executar a aplicação
+
+Para iniciar o ARI, execute:
+
+```bash
+python main.py
+```
+
+A aplicação será iniciada e estará pronta para uso! 
 
 <a id="documentacao"></a>
 ## 🗂️​ Outras documentações
